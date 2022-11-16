@@ -1,7 +1,7 @@
 # Pandas TA Quant
 
 Basically a wrapper around [tulipy][e1] indicators. The library fully builds on top of pandas and pandas_df_commons, 
-therefore allows to deal with MultiIndex easily. For example it is very convinent to have bars 
+therefore allows to deal with MultiIndex easily. For example, it is very convenient to have bars 
 (open, high, low, close data) of multiple assets as a MultiIndex in either rows or columns or both.
 
 | Date                |   ('spy', 'Open') |   ('spy', 'High') |   ('spy', 'Low') |   ('spy', 'Close') |   ('spy', 'Volume') |   ('spy', 'Dividends') |   ('spy', 'Stock Splits') |   ('gld', 'Open') |   ('gld', 'High') |   ('gld', 'Low') |   ('gld', 'Close') |   ('gld', 'Volume') |   ('gld', 'Dividends') |   ('gld', 'Stock Splits') |
@@ -34,6 +34,23 @@ import yfinance as yf
 df = yf.Ticker("TSLA").history('max')['2020-01-1':]
 ax = df["Close"].plot()
 df.ta.ema(20).plot(ax=ax)
+```
+
+As already mentioned it is fully compatible with MultilevelIndex, so you can just 
+call the indicator on the whole DataFrame.
+
+```python
+from pandas_ta import pd
+import yfinance as yf
+
+df = pd.concat(
+    [yf.Ticker("TSLA").history('max')['2020-01-1':], yf.Ticker("MSFT").history('max')['2020-01-1':]],
+    axis=1,
+    keys=["TSLA", "MSFT"]
+)
+
+
+df.ta.natr(20).plot()
 ```
 
 

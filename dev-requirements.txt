@@ -10,3 +10,4 @@ numba
 dill
 Pillow
 psutil
+pytest

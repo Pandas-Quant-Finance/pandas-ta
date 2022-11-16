@@ -1,9 +1,10 @@
 arch
 bintrees
+cpython
 numpy
 pandas
 pyts
 scikit-learn
 scipy
 statsmodels
-tulipy
+newtulipy
