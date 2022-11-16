@@ -1,0 +1,12 @@
+Markdown
+TA-Lib
+ipykernel
+jupyter-client
+lxml
+matplotlib
+nbconvert
+requests
+numba
+dill
+Pillow
+psutil
