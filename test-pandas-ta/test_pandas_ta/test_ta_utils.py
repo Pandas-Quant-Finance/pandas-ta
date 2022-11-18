@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from config import DF_TEST, DF_TEST_MULTI_ROW_MULTI_COLUMN
-from pandas_ta.pandas_ta_utils.index_utils import same_columns_after_level
+from pandas_df_commons.indexing._utils import same_columns_after_level
 from pandas_ta.technical_analysis import ta_apply, ta_resample, ta_repeat, ta_gkyz_volatility, ta_cc_volatility
 
 

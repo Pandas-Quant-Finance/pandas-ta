@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pandas as pd
 
-from pandas_ta.pandas_ta_utils.index_utils import same_columns_after_level
+from pandas_df_commons.indexing._utils import same_columns_after_level
 
 
 class TestQuantIndexUtils(TestCase):
