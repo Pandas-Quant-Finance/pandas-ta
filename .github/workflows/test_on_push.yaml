@@ -2,6 +2,11 @@ name: Test DF TA on Push
 
 on: [push]
 
+env:
+  LD_LIBRARY_PATH: '/tmp/lib:/usr/lib:/usr/local/lib/'
+  TA_LIBRARY_PATH: '/tmp/lib/'
+  TA_INCLUDE_PATH: '/tmp/include/'
+
 jobs:
   build:
 
@@ -12,10 +17,6 @@ jobs:
 
     steps:
       - name: Install C dependencies
-        env:
-          LD_LIBRARY_PATH: '/tmp/lib:/usr/lib:/usr/local/lib/'
-          TA_LIBRARY_PATH: '/tmp/lib/'
-          TA_INCLUDE_PATH: '/tmp/include/'
         run: |
           wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
           tar -xzf ta-lib-0.4.0-src.tar.gz
