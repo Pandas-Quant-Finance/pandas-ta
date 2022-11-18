@@ -20,7 +20,7 @@ def monkey_patch_dataframe(extender='ta'):
 
     existing = getattr(PandasObject, extender, None)
     if existing is not None:
-        if not isinstance(existing.fget(None), _TA):
+        if not isinstance(existing, property) or not isinstance(existing.fget(None), _TA):
             raise ValueError(f"field already exists as {type(existing)}")
 
     setattr(PandasObject, extender, property(lambda self: _TA(self)))
