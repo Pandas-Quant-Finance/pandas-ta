@@ -1,10 +1,9 @@
 from __future__ import annotations
 import typing as _t
 import pandas as _pd
-import pandas as pd
 
 from pandas_df_commons.indexing.multiindex_utils import add_to_multi_index
-from pandas_ta.pandas_ta_utils.decorators import for_each_top_level_row, for_each_top_level_column
+from pandas_df_commons.indexing.decorators import for_each_top_level_row, for_each_top_level_column
 
 
 def ta_repeat(

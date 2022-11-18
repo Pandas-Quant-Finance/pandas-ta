@@ -1,3 +1,4 @@
+pandas-df-commons @ git+https://github.com/Pandas-Quant-Finance/pandas-df-commons
 arch
 bintrees
 cpython

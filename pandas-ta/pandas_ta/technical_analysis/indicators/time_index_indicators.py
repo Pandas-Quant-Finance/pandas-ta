@@ -4,7 +4,7 @@ import numpy as _np
 import pandas as _pd
 from dateutil.relativedelta import relativedelta
 
-from pandas_ta.pandas_ta_utils.decorators import *
+from pandas_df_commons.indexing.decorators import *
 from pandas_ta.pandas_ta_utils.time_utils import opex_date_of_date
 
 

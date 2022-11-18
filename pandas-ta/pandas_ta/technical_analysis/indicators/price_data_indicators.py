@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from pandas_df_commons.indexing import get_columns
-from pandas_ta.pandas_ta_utils.decorators import for_each_column, for_each_top_level_row, for_each_top_level_column, rename_with_parameters
+from pandas_df_commons.indexing.decorators import for_each_column, for_each_top_level_row, for_each_top_level_column, rename_with_parameters
 import tulipy
 
 

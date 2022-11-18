@@ -1,5 +1,5 @@
 """Augment pandas DataFrame with methods for technical quant analysis"""
-__version__ = '0.3.0'
+__version__ = open(f"{__file__.replace('__init__.py', '')}VERSION").read()
 
 
 class _TA(object):

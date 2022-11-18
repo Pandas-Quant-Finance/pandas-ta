@@ -1,0 +1,5 @@
+graft pandas-ta
+include *.txt *.md
+global-exclude *.py[co]
+global-exclude __pycache__
+prune *-test
