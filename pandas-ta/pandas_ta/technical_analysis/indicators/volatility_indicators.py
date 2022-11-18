@@ -12,7 +12,7 @@ from pandas_df_commons.indexing.decorators import for_each_column, for_each_top_
 @for_each_top_level_row
 @for_each_top_level_column
 @rename_with_parameters(function_name='hurst_volatility', parameter_names=['period'], output_names=['H', 'nu'])
-def ta_hurst_volatility(df: pd.DataFrame, period=255*2, lags=30, open="Open", high="High", low="Low", close="Close") -> _PANDAS:
+def ta_hurst_volatility(df: pd.DataFrame, period=255*2, lags=30, open="Open", high="High", low="Low", close="Close") -> pd.DataFrame:
     x = np.arange(1, lags)
     v = ta_gkyz_volatility(df, period=1, open=open, high=high, low=low, close=close).iloc[:, 0]
 
