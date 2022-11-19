@@ -70,7 +70,9 @@ prolog = '''from __future__ import annotations
 import pandas as pd
 
 from pandas_df_commons.indexing import get_columns
-from pandas_ta.pandas_ta_utils.decorators import for_each_column, for_each_top_level_row, for_each_top_level_column, rename_with_parameters
+from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row_and_column,\
+ rename_with_parameters
+
 import tulipy
 
 '''
@@ -78,7 +80,7 @@ import tulipy
 test_prolog='''
 from unittest import TestCase
 
-from config import DF_TEST
+from config import DF_TEST_MULTI_ROW_MULTI_COLUMN as DF_TEST
 from pandas_ta.technical_analysis import *
 
 
@@ -86,8 +88,7 @@ class TestIndicator(TestCase):
 '''
 
 bar_template = Template('''
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='$name', parameter_names=[$parameter_names], output_names=[$output_names])
 def ta_$name(df: pd.DataFrame, $parameters $inputs **kwargs) -> pd.DataFrame:
     """
@@ -107,8 +108,7 @@ def ta_$name(df: pd.DataFrame, $parameters $inputs **kwargs) -> pd.DataFrame:
 ''')
 
 price_template = Template('''
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row_and_column(parallel=False)
 def ta_$name(df: pd.DataFrame | pd.Series, $parameters $inputs **kwargs) -> pd.DataFrame:
     """
     $fullname ($type)
@@ -116,7 +116,7 @@ def ta_$name(df: pd.DataFrame | pd.Series, $parameters $inputs **kwargs) -> pd.D
     
     data = get_columns(df, [$tulip_inputs]) if [$tulip_inputs][0] is not None and df.ndim > 1 else df  
 
-    @for_each_column
+    @foreach_column
     @rename_with_parameters(function_name='$name', parameter_names=[$parameter_names], output_names=[$output_names])
     def wrapped_ta_$name(data, $parameters):
         # result gets converted by rename_with_parameters to DataFrame
@@ -131,6 +131,7 @@ def ta_$name(df: pd.DataFrame | pd.Series, $parameters $inputs **kwargs) -> pd.D
 test_template = Template('''
     def test_ta_$name(self):
         df = ta_$name(DF_TEST, *$parameter_defaults)
+        pd.testing.assert_frame_equal(df.loc["A"], df.loc["B"])
 ''')
 
 

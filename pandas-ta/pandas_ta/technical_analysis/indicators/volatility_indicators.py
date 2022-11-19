@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 
 from pandas_df_commons.indexing import get_columns
-from pandas_df_commons.indexing.decorators import for_each_column, for_each_top_level_row, for_each_top_level_column, \
+from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row, foreach_top_level_column, \
     rename_with_parameters, is_time_consuming
 
 
 @is_time_consuming
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 @rename_with_parameters(function_name='hurst_volatility', parameter_names=['period'], output_names=['H', 'nu'])
 def ta_hurst_volatility(df: pd.DataFrame, period=255*2, lags=30, open="Open", high="High", low="Low", close="Close") -> pd.DataFrame:
     x = np.arange(1, lags)
@@ -34,8 +34,8 @@ def ta_hurst_volatility(df: pd.DataFrame, period=255*2, lags=30, open="Open", hi
     return [open, high, low, close], [x for x in e_hurst.T]
 
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 @rename_with_parameters(function_name='gkyz_volatility', parameter_names=['period'], output_names=['gkyz_volatility'])
 def ta_gkyz_volatility(df: pd.DataFrame, period=12, open="Open", high="High", low="Low", close="Close") -> pd.DataFrame:
     # sqrt (sum of (  ln(o[i] / c[i-1] )^2 + 1/2 * (ln(h[i] / l[i]))^2 - (2 * ln(2) - 1) * (ln(c[i] / o[i]))^2   ) / N)
@@ -51,12 +51,12 @@ def ta_gkyz_volatility(df: pd.DataFrame, period=12, open="Open", high="High", lo
     return vdf.columns.tolist(), v.values
 
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 def ta_cc_volatility(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataFrame:
     data = get_columns(df, [real]) if real is not None and df.ndim > 1 else df
 
-    @for_each_column
+    @foreach_column
     @rename_with_parameters(function_name='cc_volatility', parameter_names=['period'], output_names=['cc_volatility'])
     def wrapped_cc_volatility(col, period):
         # result gets converted by rename_with_parameters to DataFrame
@@ -65,13 +65,13 @@ def ta_cc_volatility(df: pd.Series | pd.DataFrame, period=12, real="Close") -> p
 
     return wrapped_cc_volatility(data, period)
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataFrame:
     data = get_columns(df, [real]) if real is not None and df.ndim > 1 else df
     alpha = 2 / (period + 1) if period > 1 else period
 
-    @for_each_column
+    @foreach_column
     @rename_with_parameters(function_name='zscore', parameter_names=['period'], output_names=['std', 'z'])
     def wrapped_cc_volatility(col: pd.Series, period):
         # result gets converted by rename_with_parameters to DataFrame
@@ -84,8 +84,8 @@ def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataF
     return wrapped_cc_volatility(data, period)
 
 
-@for_each_column
-@for_each_top_level_row
+@foreach_column
+@foreach_top_level_row
 def ta_up_down_volatility_ratio(df: pd.Series, period=60, normalize=True):
     returns = df.pct_change() if normalize else df
 

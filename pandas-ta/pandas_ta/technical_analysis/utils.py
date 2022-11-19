@@ -3,7 +3,7 @@ import typing as _t
 import pandas as _pd
 
 from pandas_df_commons.indexing.multiindex_utils import add_to_multi_index
-from pandas_df_commons.indexing.decorators import for_each_top_level_row, for_each_top_level_column
+from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_top_level_column
 
 
 def ta_repeat(
@@ -25,8 +25,8 @@ def ta_repeat(
     return add_to_multi_index(res, multiindex) if multiindex else res
 
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 def ta_apply(df: _pd.DataFrame, func: _t.Callable | _t.Dict[str, _t.Callable], period=None, columns=None):
     if isinstance(func, dict):
         keys = []
@@ -65,6 +65,6 @@ def ta_apply(df: _pd.DataFrame, func: _t.Callable | _t.Dict[str, _t.Callable], p
         return _pd.concat([_pd.DataFrame({}, index=df.index), rdf], axis=1, join='outer')
 
 
-@for_each_top_level_row
+@foreach_top_level_row
 def ta_resample(df: _pd.DataFrame, func, freq='D', **kwargs):
     return df.resample(freq, **kwargs).apply(func)

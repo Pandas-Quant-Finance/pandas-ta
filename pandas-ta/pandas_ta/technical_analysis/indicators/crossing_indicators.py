@@ -3,12 +3,12 @@ from __future__ import annotations
 import pandas as pd
 
 from pandas_df_commons.indexing import get_columns
-from pandas_df_commons.indexing.decorators import for_each_top_level_row, for_each_top_level_column, rename_with_parameters
+from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_top_level_column, rename_with_parameters
 import tulipy
 
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 @rename_with_parameters(function_name='crossany', parameter_names=[], output_names=['crossany'])
 def ta_crossany(df: pd.DataFrame, real=None, real1=None,   **kwargs) -> pd.DataFrame:
     """
@@ -24,8 +24,8 @@ def ta_crossany(df: pd.DataFrame, real=None, real1=None,   **kwargs) -> pd.DataF
     return columns, tulipy.crossany(*[values[:, i].copy(order='C') for i in range(values.shape[1])])
 
 
-@for_each_top_level_row
-@for_each_top_level_column
+@foreach_top_level_row
+@foreach_top_level_column
 @rename_with_parameters(function_name='crossover', parameter_names=[], output_names=['crossover'])
 def ta_crossover(df: pd.DataFrame, real=None, real1=None,  **kwargs) -> pd.DataFrame:
     """
