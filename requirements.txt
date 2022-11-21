@@ -2,8 +2,10 @@ pandas-df-commons @ git+https://github.com/Pandas-Quant-Finance/pandas-df-common
 arch
 bintrees
 cpython
+dill
 numpy
 pandas
+pathos
 pyts
 scikit-learn
 scipy

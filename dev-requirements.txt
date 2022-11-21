@@ -13,3 +13,4 @@ psutil
 pytest
 requests
 tabulate
+yfinance
