@@ -1,26 +1,9 @@
 """Augment pandas DataFrame with methods for technical quant analysis"""
 __version__ = open(f"{__file__.replace('__init__.py', '')}VERSION").read()
 
+from functools import partial as _partial
 
-class _TA(object):
+from pandas_df_commons._utils.patching import _monkey_patch_dataframe, _add_functions
 
-    def __init__(self, df):
-        from pandas_ta import technical_analysis as ta
-        from functools import partial, wraps
-
-        self.df = df
-
-        for name, func in ta.__dict__.items():
-            if name.startswith("ta_"):
-                self.__dict__[name[3:]] = wraps(func)(partial(func, self.df))
-
-
-def monkey_patch_dataframe(extender='ta'):
-    from pandas.core.base import PandasObject
-
-    existing = getattr(PandasObject, extender, None)
-    if existing is not None:
-        if not isinstance(existing, property) or not isinstance(existing.fget(None), _TA):
-            raise ValueError(f"field already exists as {type(existing)}")
-
-    setattr(PandasObject, extender, property(lambda self: _TA(self)))
+_TA = _add_functions('pandas_ta.technical_analysis', filter=lambda _, x: x[3:] if x.startswith("ta_") else None)
+monkey_patch_dataframe = _partial(_monkey_patch_dataframe, extension_default_value='ta', extension_class=_TA)
