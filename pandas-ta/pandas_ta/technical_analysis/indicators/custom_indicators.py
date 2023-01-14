@@ -35,25 +35,25 @@ def ta_mamentum(df: pd.Series, period, real='Close', mas=None):
     @foreach_column
     @rename_with_parameters(function_name='mamemntum', parameter_names=['period', 'mas'], output_names=["momentum", "overdrive", "drag"])
     def wrapped(s, period, mas):
-        mas = np.linspace(period - 1, 0, mas, endpoint=True, dtype=int)
-        scale = (len(mas) / 2) - 1
+        mmas = np.linspace(period - 1, 0, mas, endpoint=True, dtype=int)
+        scale = (len(mmas) / 2)
 
         def mamentum_basis(window):
             means = []
             sum = 0
 
-            for i in mas:
+            for i in mmas:
                 sum += float(window.iloc[i])
                 means.append(sum / (len(means) + 1))
 
             return Object(np.array(means))
 
-        mmeans = rolling_apply(s, 60, mamentum_basis)
+        mmeans = rolling_apply(s, period, mamentum_basis)
         return ["momentum", "overdrive", "drag"], pd.concat(
             [
                 s.to_frame()[[]],
-                rolling_apply(mmeans, 2, lambda x: np.sum(x.iloc[-1, 0].value >= x.iloc[0, 0].value) / scale),
-                mmeans.apply(lambda x: x[0].value[-1] / x[0].value[0] - 1, axis=1),
+                rolling_apply(mmeans, 2, lambda x: np.sum(x.iloc[-1, 0].value >= x.iloc[0, 0].value) / scale - 1),
+                mmeans.apply(lambda x: x[0].value[-1] / x[0].value[min(2, mas)] - 1, axis=1),
                 mmeans.apply(lambda x: np.abs(x[0].value[0] - x[0].value[1:]).argmin(), axis=1)
             ],
             axis=1,

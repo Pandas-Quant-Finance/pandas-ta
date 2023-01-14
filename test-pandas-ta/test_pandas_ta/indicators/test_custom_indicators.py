@@ -16,5 +16,6 @@ class TestCustomIndicators(TestCase):
         #pd.testing.assert_frame_equal(df2.loc["A"], df2.loc["B"])
 
     def test_mamentum(self):
-        mam = ta_mamentum(DF_TEST, 40, mas=20)
-        print(mam)
+        mam1 = ta_mamentum(DF_TEST, 40)
+        mam2 = ta_mamentum(DF_TEST, 90, mas=40)
+        print(mam1, mam2)
