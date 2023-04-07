@@ -8,6 +8,6 @@ from pandas_ta.technical_analysis.indicators.lambda_indicator import ta_rolling_
 
 class TestIndicator(TestCase):
 
-    def test_ta_apo(self):
+    def test_ta_rolling_lambda(self):
         df = ta_rolling_lambda(DF_TEST[["Open", "Close"]], 10, lambda s: s.max().max())
         self.assertEqual(315.480011, df.iloc[-1,-1])
