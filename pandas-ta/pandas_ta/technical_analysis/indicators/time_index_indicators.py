@@ -2,10 +2,15 @@ from __future__ import annotations
 
 import numpy as _np
 import pandas as _pd
+import pandas as pd
 from dateutil.relativedelta import relativedelta
 
 from pandas_df_commons.indexing.decorators import *
 from pandas_ta.pandas_ta_utils.time_utils import opex_date_of_date
+import pylunar
+
+# Location: Boston, MA, USA
+_MOON_INFO = pylunar.MoonInfo((42, 21, 30), (-71, 3, 35))
 
 
 @foreach_top_level_row
@@ -57,3 +62,17 @@ def ta_dist_opex(po: _pd.DataFrame | _pd.Series):
         return dist
 
     return df.index.to_series().apply(dist_next_opex).rename("dist_2_opex")
+
+
+@foreach_top_level_row
+def ta_moon_phase(df: _pd.DataFrame | _pd.Series):
+    if not isinstance(df.index, _pd.DatetimeIndex):
+        df = df.copy()
+        df.index = _pd.to_datetime(df.index)
+
+    def moon_phase(t: pd.Timestamp):
+        t = t.tz_localize(tz='UTC') if t.tzinfo is None else t.astimezone(tz='UTC')
+        _MOON_INFO.update((t.year, t.month, t.day, t.hour, t.minute, t.second))
+        return _MOON_INFO.fractional_phase()
+
+    return df.index.to_series().apply(moon_phase).rename("moonphase")

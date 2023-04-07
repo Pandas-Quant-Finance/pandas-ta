@@ -6,6 +6,7 @@ dill
 numpy
 pandas
 pathos
+pylunar
 pyts
 scikit-learn
 scipy
