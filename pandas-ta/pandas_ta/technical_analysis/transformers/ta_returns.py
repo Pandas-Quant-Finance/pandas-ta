@@ -19,7 +19,7 @@ def ta_returns(
         if columns is not None:
             df = df[columns]
 
-        return df.pct_change(period).dropna()
+        return df.pct_change(period).replace([-np.inf, np.inf], 0).dropna()
 
     return f(df)
 
@@ -36,6 +36,6 @@ def ta_logreturns(
         if columns is not None:
             df = df[columns]
 
-        return (np.log(df) - np.log(df.shift(period))).dropna()
+        return (np.log(df) - np.log(df.shift(period))).replace([-np.inf, np.inf], 0).dropna()
 
     return f(df)
