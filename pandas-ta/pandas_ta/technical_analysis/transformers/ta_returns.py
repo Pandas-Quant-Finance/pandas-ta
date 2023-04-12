@@ -5,7 +5,7 @@ from typing import List
 import numpy as np
 import pandas as pd
 
-from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_column
+from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_column, convert_series_as_data_frame
 
 
 def ta_returns(
@@ -14,7 +14,9 @@ def ta_returns(
         columns:str|List[str] = None,
         parallel=False,
 ) -> pd.DataFrame | pd.Series:
+
     @foreach_top_level_row_and_column(parallel=parallel)
+    @convert_series_as_data_frame
     def f(df):
         if columns is not None:
             df = df[columns]
@@ -22,6 +24,7 @@ def ta_returns(
         return df.pct_change(period).replace([-np.inf, np.inf], 0).dropna()
 
     return f(df)
+
 
 @foreach_top_level_row_and_column(parallel=False)
 def ta_logreturns(
@@ -32,6 +35,7 @@ def ta_logreturns(
 ) -> pd.DataFrame | pd.Series:
 
     @foreach_top_level_row_and_column(parallel=parallel)
+    @convert_series_as_data_frame
     def f(df):
         if columns is not None:
             df = df[columns]
