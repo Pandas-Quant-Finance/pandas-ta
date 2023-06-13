@@ -23,10 +23,10 @@ def ta_lambda_signal(
 
     def _signal(previous, current):
         if enter_condition(previous, current):
-            return enter_value
+            return enter_value(current) if callable(enter_value) else enter_value
         elif exit_condition(previous, current):
-            return exit_value
+            return exit_value(current) if callable(exit_value) else exit_value
         else:
-            return default_value
+            return default_value(current) if callable(default_value) else default_value
 
     return df.rolling(period).apply(lambda row: _signal(row.iloc[0], row.iloc[-1]))
