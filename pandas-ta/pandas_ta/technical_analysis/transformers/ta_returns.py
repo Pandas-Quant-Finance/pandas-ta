@@ -21,7 +21,7 @@ def ta_returns(
         if columns is not None:
             df = df[columns]
 
-        return df.pct_change(period).replace([-np.inf, np.inf], 0).dropna()
+        return df.pct_change(period).replace([-np.inf, np.inf], 0).fillna(0)
 
     return f(df)
 
