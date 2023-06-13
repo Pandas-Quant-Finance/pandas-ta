@@ -5,11 +5,12 @@ from typing import Callable, Any
 import numpy as np
 import pandas as pd
 
-from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_column
+from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_column, convert_series_as_data_frame
 
 
 @foreach_top_level_row
 @foreach_column
+@convert_series_as_data_frame
 def ta_lambda_signal(
         df: pd.DataFrame,
         enter_condition: Callable[[Any, Any], bool],
