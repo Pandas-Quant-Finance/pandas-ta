@@ -12,7 +12,7 @@ from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_colu
 def ta_standardized(
         df: pd.DataFrame | pd.Series,
         period: int = 14,
-        columns:str|List[str] = None,
+        columns: str|List[str] = None,
         parallel=False,
 ) -> pd.DataFrame | pd.Series:
 
@@ -21,7 +21,7 @@ def ta_standardized(
         if columns is not None:
             df = df[columns]
 
-        scaled_window_df = rolling_apply(df, period, StandardScaler().fit_transform, parallel)
-        return None  # FIXME
+        scaled_window_df = rolling_apply(df, period, lambda f: StandardScaler().fit_transform(f)[-1], parallel)
+        return scaled_window_df
 
     return f(df)
