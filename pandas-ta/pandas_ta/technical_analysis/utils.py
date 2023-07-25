@@ -1,6 +1,7 @@
 from __future__ import annotations
 import typing as _t
 import pandas as _pd
+import pandas as pd
 
 from pandas_df_commons.indexing.multiindex_utils import add_to_multi_index
 from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_top_level_column
@@ -15,12 +16,11 @@ def ta_repeat(
         **kwargs):
     parameters = list(repetition)
     res = _pd.concat(
-            [func(df, param, *args, **kwargs) for param in parameters],
+            [func(df, param, *args, **kwargs) for param in parameters] + [_pd.DataFrame({}, index=df.index)],
             axis=1,
             join='outer',
             keys=parameters
-        ).swaplevel(-2, -1, 1)\
-         .join(_pd.DataFrame({}, index=df.index), how='outer')
+        ).swaplevel(-2, -1, 1)
 
     return add_to_multi_index(res, multiindex) if multiindex else res
 
