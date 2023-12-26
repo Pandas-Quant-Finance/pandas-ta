@@ -15,7 +15,7 @@ You can either import an already patched pandas object or you can patch the exte
 So the shorthand
 
 ```python
-from pandas_ta import pd
+from pandas_ta.patched import pd
 ```
 
 is equivalent to
@@ -28,7 +28,7 @@ pta.monkey_patch_dataframe("ta")
 After import and patching you can use the indicators directly from your DataFrame:
 
 ```python
-from pandas_ta import pd
+from pandas_ta.patched import pd
 import yfinance as yf
 
 df = yf.Ticker("TSLA").history('max')['2020-01-1':]
@@ -40,7 +40,7 @@ As already mentioned it is fully compatible with MultilevelIndex, so you can jus
 call the indicator on the whole DataFrame.
 
 ```python
-from pandas_ta import pd
+from pandas_ta.patched import pd
 import yfinance as yf
 
 df = pd.concat(
