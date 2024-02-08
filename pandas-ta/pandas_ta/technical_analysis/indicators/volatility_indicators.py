@@ -73,7 +73,7 @@ def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataF
 
     @foreach_column
     @rename_with_parameters(function_name='zscore', parameter_names=['period'], output_names=['std', 'z'])
-    def wrapped_cc_volatility(col: pd.Series, period):
+    def wrapped_zscore(col: pd.Series, alpha):
         # result gets converted by rename_with_parameters to DataFrame
         columns = col.columns.tolist() if data.ndim > 1 else [col.name]
         ma = col.ewm(alpha=alpha).mean().values
@@ -81,7 +81,7 @@ def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataF
         res = (col - ma) / std
         return columns, (std, res.values)
 
-    return wrapped_cc_volatility(data, period)
+    return wrapped_zscore(data, alpha)
 
 
 @foreach_column
