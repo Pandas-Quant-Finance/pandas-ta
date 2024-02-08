@@ -1,45 +1,37 @@
 from __future__ import annotations
 
+from functools import partial
 from typing import List
 
 import numpy as np
 import pandas as pd
 
+from pandas_df_commons.indexing import get_columns
 from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_column, convert_series_as_data_frame
 
 
 def ta_returns(
         df: pd.DataFrame | pd.Series,
         period: int = 1,
-        columns:str|List[str] = None,
-        parallel=False,
+        columns: str | List[str] = None,
+        log: bool = False,
+        parallel: bool = False,
 ) -> pd.DataFrame | pd.Series:
 
-    @foreach_top_level_row_and_column(parallel=parallel)
-    @convert_series_as_data_frame
-    def f(df):
-        if columns is not None:
-            df = df[columns]
+    data = get_columns(df, [columns]) if columns is not None and df.ndim > 1 else df
 
-        return df.pct_change(period).replace([-np.inf, np.inf], 0).fillna(0)
+    if log:
+        @foreach_top_level_row_and_column(parallel=parallel)
+        @convert_series_as_data_frame
+        def f(df):
+            return (np.log(df) - np.log(df.shift(period))).replace([-np.inf, np.inf], 0).dropna()
+    else:
+        @foreach_top_level_row_and_column(parallel=parallel)
+        @convert_series_as_data_frame
+        def f(df):
+            return df.pct_change(period).replace([-np.inf, np.inf], 0).fillna(0)
 
-    return f(df)
+    return f(data)
 
 
-@foreach_top_level_row_and_column(parallel=False)
-def ta_logreturns(
-        df: pd.DataFrame | pd.Series,
-        period: int = 1,
-        columns:str|List[str] = None,
-        parallel=False,
-) -> pd.DataFrame | pd.Series:
-
-    @foreach_top_level_row_and_column(parallel=parallel)
-    @convert_series_as_data_frame
-    def f(df):
-        if columns is not None:
-            df = df[columns]
-
-        return (np.log(df) - np.log(df.shift(period))).replace([-np.inf, np.inf], 0).dropna()
-
-    return f(df)
+ta_logreturns = partial(ta_returns, log=True)
