@@ -21,3 +21,7 @@ class TestPatchDataFrame(TestCase):
     def test_import_patched(self):
         from pandas_ta.patched import pd
         self.assertIsNotNone(getattr(pd.DataFrame({}), "ta", None))
+
+    def test_random_patch(self):
+        from pandas_ta.patched import pd
+        self.assertIsNotNone(getattr(getattr(pd.DataFrame({}), "ta", None), 'garman_klass', None))
