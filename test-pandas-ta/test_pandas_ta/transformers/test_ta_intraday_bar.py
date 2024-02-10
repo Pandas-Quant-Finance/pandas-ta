@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from config import DF_TEST
+from config import DF_TEST, DF_TEST_MULTI
 from pandas_ta.technical_analysis.transformers.ta_intraday_bar import ta_hlc3, ta_garman_klass, ta_satchell_yoon
 
 
@@ -12,6 +12,8 @@ class TestIntradayTransformer(TestCase):
         self.assertAlmostEqual(311.640035, res.iloc[-1])
 
     def test_ta_garman_klass(self):
+        res = ta_garman_klass(DF_TEST_MULTI)
+        print(res.columns)
         res = ta_garman_klass(DF_TEST)
         print(res.tail())
         self.assertAlmostEqual(0.000014, res.iloc[-1], 6)
