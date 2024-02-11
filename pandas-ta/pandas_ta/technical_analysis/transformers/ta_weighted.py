@@ -4,7 +4,7 @@ from typing import List
 
 import pandas as pd
 
-from pandas_df_commons import foreach_top_level_row
+from pandas_df_commons.indexing.decorators import foreach_top_level_row
 from pandas_df_commons.indexing import get_columns
 
 
