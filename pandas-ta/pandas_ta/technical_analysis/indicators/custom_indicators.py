@@ -3,7 +3,8 @@ import pandas as pd
 
 from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing import get_columns
-from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row, rename_with_parameters
+from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row, rename_with_parameters, \
+    convert_series_as_data_frame
 
 
 @foreach_top_level_row
@@ -61,3 +62,28 @@ def ta_mamentum(df: pd.Series, period, real='Close', mas=None):
         ).values
 
     return wrapped(data, period, mas if mas is not None else period)
+
+
+@foreach_top_level_row
+def ta_mdd(df: pd.DataFrame, period):
+    """
+    Indicator: Maximum Draw Down
+    Parameters
+    ----------
+    df
+    period
+
+    Returns
+    -------
+    DataFrame[draw_down, max_draw_down]
+    """
+
+    @foreach_column
+    def wrapped(s, period):
+        roll_max = s.rolling(period).max(axis=None)
+        drawdown = s / roll_max - 1.0
+        max_draw_down = drawdown.rolling(period).min()
+
+        return pd.concat([drawdown, max_draw_down], axis=1, keys=[f"drawdown({period})", f"max_draw_down({period})"])
+
+    return wrapped(df, period)
