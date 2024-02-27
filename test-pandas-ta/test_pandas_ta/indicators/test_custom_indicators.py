@@ -3,7 +3,7 @@ from unittest import TestCase
 import pandas as pd
 
 from config import DF_TEST_MULTI_ROW_MULTI_COLUMN as DF_TEST
-from pandas_ta.technical_analysis import ta_gmean, ta_mamentum, ta_mdd
+from pandas_ta.technical_analysis import ta_gmean, ta_mamentum, ta_mdd, ta_top_bottom
 
 
 class TestCustomIndicators(TestCase):
@@ -23,3 +23,7 @@ class TestCustomIndicators(TestCase):
     def test_max_draw_down(self):
         df = ta_mdd(DF_TEST["spy"][["Open", "Close"]], 20)
         print(df.iloc[-1])
+
+    def test_top_bottom(self):
+        df = ta_top_bottom(DF_TEST["spy"])
+        print(df.tail())

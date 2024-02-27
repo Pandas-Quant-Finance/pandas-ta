@@ -9,7 +9,7 @@ class TaWeightedTransformer(TestCase):
 
     def test_ta_weighted_row(self):
         res = ta_weighted_row(DF_TEST_MULTI, columns='Close', weights='Volume')
-        expected = (DF_TEST_MULTI.iloc[-1][("spy", "Close")] * DF_TEST_MULTI.iloc[-1][("spy", "Volume")]) / get_columns(DF_TEST_MULTI, "Volume").iloc[-1].sum()
+        expected = (DF_TEST_MULTI.iloc[-1][("spy", "Close")] * DF_TEST_MULTI.iloc[-1][("spy", "Volume")]) / get_columns(DF_TEST_MULTI, "Volume").iloc[-1].mean()
         print(res.tail())
         print(expected)
         self.assertAlmostEqual(res.iloc[-1, 0], expected)
