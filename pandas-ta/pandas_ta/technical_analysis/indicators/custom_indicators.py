@@ -153,6 +153,11 @@ def ta_hh_ll(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_qu
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_top_bottom(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):
+    # algorithm:
+    #  when the next highest high is a lower high and the slope of the lest low before the current high was positive
+    #  then we have found a top. on the other hand if the next lowest low is higher and the latest slope of the previous
+    #  highest high was negative we have found a bottom.
+    # however, this algorithm fails on sharpe swings and consecutive tops or bottoms which need to be fixed afterward.
     hh_ll = ta_hh_ll(df, period, high, low, ignore_quantile_move)
 
     hh = hh_ll[["hh"]].copy()
