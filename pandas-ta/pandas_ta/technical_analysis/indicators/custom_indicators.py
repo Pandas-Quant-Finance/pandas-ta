@@ -94,23 +94,10 @@ def ta_mdd(df: pd.DataFrame, period):
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_hh_ll(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):
-    assert period is None, "None None period not yet implemented!"
+    assert period is not None, "Non None period not yet implemented!"
     h_data = get_columns(df, high) if high is not None and df.ndim > 1 else df
     l_data = get_columns(df, low) if low is not None and df.ndim > 1 else df
 
-    # high:
-    # if hh slope is negative
-    #   a: go back until slope is not 0
-    #     if last hh slope was positive
-    #       go back until ll slope is not 0
-    #         if ll slope was positive "a" was a high
-    #
-    # low:
-    # if ll slope is positive
-    #   a: go back until slope is not 0
-    #     if last ll slope was negative
-    #       go back until hh slope is not 0
-    #         if hh slope was netgatoive "a" was a low
     def wrapped(df):
         hh, ll = None, None
         reset_hh, reset_ll = False, False
@@ -199,7 +186,7 @@ def ta_top_bottom(df: pd.DataFrame, period=None, high='Close', low='Close', igno
     excl_idx = defaultdict(set)
     for period, counter_events, selector in [("top", "bottom", np.nanargmin), ("bottom", "top", np.nanargmax)]:
         for idx, row in top_bottom[~pd.isna(top_bottom[period])].index.to_series().shift(1).dropna().items():
-            tmp = top_bottom.loc[row:idx + 1, counter_events]
+            tmp = top_bottom.loc[row:idx, counter_events]
             try:
                 extrema = selector(tmp)
 
@@ -212,3 +199,19 @@ def ta_top_bottom(df: pd.DataFrame, period=None, high='Close', low='Close', igno
         top_bottom.loc[list(v), k] = None
 
     return top_bottom[["top", "bottom"]]
+
+
+@foreach_top_level_row
+@foreach_top_level_column
+def ta_trend(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):
+    # use top_slope and bottom_slope for trend classification
+    #  if both slopes are positive => up trend
+    #  if both slopes are negative => down trend
+    #  top_slope + bottom_slope => trend strength
+    tmp = ta_top_bottom(df, period=period, high=high, low=low, ignore_quantile_move=ignore_quantile_move)
+    tmp = tmp.interpolate().pct_change()
+
+    trend = (((tmp["top"] > 0) & (tmp["bottom"] > 0)).astype(int) + -((tmp["top"] < 0) & (tmp["bottom"] < 0)).astype(int))
+    strength = np.log1p(tmp).sum(axis=1)
+
+    return pd.concat([trend.rename("trend"), strength.rename("strength")], axis=1)
