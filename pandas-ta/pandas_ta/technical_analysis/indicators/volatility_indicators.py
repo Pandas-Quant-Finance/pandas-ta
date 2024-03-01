@@ -6,9 +6,11 @@ import pandas as pd
 from pandas_df_commons.indexing import get_columns
 from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row, foreach_top_level_column, \
     rename_with_parameters, is_time_consuming
+from pandas_ta.ta_decorators import apply_appendable
 
 
 @is_time_consuming
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 @rename_with_parameters(function_name='hurst_volatility', parameter_names=['period'], output_names=['H', 'nu'])
@@ -34,6 +36,7 @@ def ta_hurst_volatility(df: pd.DataFrame, period=255*2, lags=30, open="Open", hi
     return [open, high, low, close], [x for x in e_hurst.T]
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 @rename_with_parameters(function_name='gkyz_volatility', parameter_names=['period'], output_names=['gkyz_volatility'])
@@ -51,6 +54,7 @@ def ta_gkyz_volatility(df: pd.DataFrame, period=12, open="Open", high="High", lo
     return vdf.columns.tolist(), v.values
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_cc_volatility(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataFrame:
@@ -65,6 +69,8 @@ def ta_cc_volatility(df: pd.Series | pd.DataFrame, period=12, real="Close") -> p
 
     return wrapped_cc_volatility(data, period)
 
+
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataFrame:
@@ -84,6 +90,7 @@ def ta_zscore(df: pd.Series | pd.DataFrame, period=12, real="Close") -> pd.DataF
     return wrapped_zscore(data, alpha)
 
 
+@apply_appendable
 @foreach_column
 @foreach_top_level_row
 def ta_up_down_volatility_ratio(df: pd.Series, period=60, normalize=True):

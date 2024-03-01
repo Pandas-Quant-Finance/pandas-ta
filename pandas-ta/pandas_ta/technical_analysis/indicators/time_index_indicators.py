@@ -9,16 +9,20 @@ from pandas_df_commons.indexing.decorators import *
 from pandas_ta.pandas_ta_utils.time_utils import opex_date_of_date
 import pylunar
 
+from pandas_ta.ta_decorators import apply_appendable
+
 # Location: Boston, MA, USA
 _MOON_INFO = pylunar.MoonInfo((42, 21, 30), (-71, 3, 35))
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_decimal_year(df: _pd.DataFrame | _pd.Series):
     return ((df.index.strftime("%j").astype(float) - 1) / 366 + df.index.strftime("%Y").astype(float))\
         .to_series(index=df.index, name="decimal_time")
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_sinusoidal_week_day(po: _pd.DataFrame | _pd.Series):
     if not isinstance(po.index, _pd.DatetimeIndex):
@@ -30,6 +34,7 @@ def ta_sinusoidal_week_day(po: _pd.DataFrame | _pd.Series):
     return _np.sin(2 * _np.pi * (df.index.dayofweek / 6.0)).to_series(index=po.index, name="dow")
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_sinusoidal_week(po: _pd.DataFrame | _pd.Series):
     if not isinstance(po.index, _pd.DatetimeIndex):
@@ -41,6 +46,7 @@ def ta_sinusoidal_week(po: _pd.DataFrame | _pd.Series):
     return _np.sin(2 * _np.pi * (df.index.isocalendar().week / 52.0)).rename("week")
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_dist_opex(po: _pd.DataFrame | _pd.Series):
     if not isinstance(po.index, _pd.DatetimeIndex):
@@ -64,6 +70,7 @@ def ta_dist_opex(po: _pd.DataFrame | _pd.Series):
     return df.index.to_series().apply(dist_next_opex).rename("dist_2_opex")
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_moon_phase(df: _pd.DataFrame | _pd.Series):
     if not isinstance(df.index, _pd.DatetimeIndex):

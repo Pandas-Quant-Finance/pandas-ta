@@ -7,7 +7,10 @@ from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_le
 
 import tulipy
 
+from pandas_ta.ta_decorators import apply_appendable
 
+
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='ad', parameter_names=[], output_names=['ad'])
 def ta_ad(df: pd.DataFrame,  high='High', low='Low', close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -26,6 +29,7 @@ def ta_ad(df: pd.DataFrame,  high='High', low='Low', close='Close', volume='Volu
         return columns, tulipy.ad(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='adosc', parameter_names=['short_period', 'long_period'], output_names=['adosc'])
 def ta_adosc(df: pd.DataFrame, short_period, long_period,  high='High', low='Low', close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -44,6 +48,7 @@ def ta_adosc(df: pd.DataFrame, short_period, long_period,  high='High', low='Low
         return columns, tulipy.adosc(values.copy(order='C'), short_period, long_period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='adx', parameter_names=['period'], output_names=['dx'])
 def ta_adx(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -62,6 +67,7 @@ def ta_adx(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **
         return columns, tulipy.adx(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='adxr', parameter_names=['period'], output_names=['dx'])
 def ta_adxr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -80,6 +86,7 @@ def ta_adxr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  *
         return columns, tulipy.adxr(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='ao', parameter_names=[], output_names=['ao'])
 def ta_ao(df: pd.DataFrame,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -98,6 +105,7 @@ def ta_ao(df: pd.DataFrame,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
         return columns, tulipy.ao(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='aroon', parameter_names=['period'], output_names=['aroon_down', 'aroon_up'])
 def ta_aroon(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -116,6 +124,7 @@ def ta_aroon(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd
         return columns, tulipy.aroon(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='aroonosc', parameter_names=['period'], output_names=['aroonosc'])
 def ta_aroonosc(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -134,6 +143,7 @@ def ta_aroonosc(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) ->
         return columns, tulipy.aroonosc(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='atr', parameter_names=['period'], output_names=['atr'])
 def ta_atr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -152,6 +162,7 @@ def ta_atr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **
         return columns, tulipy.atr(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='avgprice', parameter_names=[], output_names=['avgprice'])
 def ta_avgprice(df: pd.DataFrame,  open='Open', high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -170,6 +181,7 @@ def ta_avgprice(df: pd.DataFrame,  open='Open', high='High', low='Low', close='C
         return columns, tulipy.avgprice(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='bop', parameter_names=[], output_names=['bop'])
 def ta_bop(df: pd.DataFrame,  open='Open', high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -188,6 +200,7 @@ def ta_bop(df: pd.DataFrame,  open='Open', high='High', low='Low', close='Close'
         return columns, tulipy.bop(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='cci', parameter_names=['period'], output_names=['cci'])
 def ta_cci(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -206,6 +219,7 @@ def ta_cci(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **
         return columns, tulipy.cci(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='cvi', parameter_names=['period'], output_names=['cvi'])
 def ta_cvi(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -224,6 +238,7 @@ def ta_cvi(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.D
         return columns, tulipy.cvi(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='di', parameter_names=['period'], output_names=['plus_di', 'minus_di'])
 def ta_di(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -242,6 +257,7 @@ def ta_di(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **k
         return columns, tulipy.di(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='dm', parameter_names=['period'], output_names=['plus_dm', 'minus_dm'])
 def ta_dm(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -260,6 +276,7 @@ def ta_dm(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.Da
         return columns, tulipy.dm(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='dx', parameter_names=['period'], output_names=['dx'])
 def ta_dx(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -278,6 +295,7 @@ def ta_dx(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **k
         return columns, tulipy.dx(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='emv', parameter_names=[], output_names=['emv'])
 def ta_emv(df: pd.DataFrame,  high='High', low='Low', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -296,6 +314,7 @@ def ta_emv(df: pd.DataFrame,  high='High', low='Low', volume='Volume',  **kwargs
         return columns, tulipy.emv(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='fisher', parameter_names=['period'], output_names=['fisher', 'fisher_signal'])
 def ta_fisher(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -314,6 +333,7 @@ def ta_fisher(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> p
         return columns, tulipy.fisher(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='kvo', parameter_names=['short_period', 'long_period'], output_names=['kvo'])
 def ta_kvo(df: pd.DataFrame, short_period, long_period,  high='High', low='Low', close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -332,6 +352,7 @@ def ta_kvo(df: pd.DataFrame, short_period, long_period,  high='High', low='Low',
         return columns, tulipy.kvo(values.copy(order='C'), short_period, long_period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='marketfi', parameter_names=[], output_names=['marketfi'])
 def ta_marketfi(df: pd.DataFrame,  high='High', low='Low', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -350,6 +371,7 @@ def ta_marketfi(df: pd.DataFrame,  high='High', low='Low', volume='Volume',  **k
         return columns, tulipy.marketfi(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='mass', parameter_names=['period'], output_names=['mass'])
 def ta_mass(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -368,6 +390,7 @@ def ta_mass(df: pd.DataFrame, period,  high='High', low='Low',  **kwargs) -> pd.
         return columns, tulipy.mass(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='medprice', parameter_names=[], output_names=['medprice'])
 def ta_medprice(df: pd.DataFrame,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -386,6 +409,7 @@ def ta_medprice(df: pd.DataFrame,  high='High', low='Low',  **kwargs) -> pd.Data
         return columns, tulipy.medprice(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='mfi', parameter_names=['period'], output_names=['mfi'])
 def ta_mfi(df: pd.DataFrame, period,  high='High', low='Low', close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -404,6 +428,7 @@ def ta_mfi(df: pd.DataFrame, period,  high='High', low='Low', close='Close', vol
         return columns, tulipy.mfi(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='natr', parameter_names=['period'], output_names=['natr'])
 def ta_natr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -422,6 +447,7 @@ def ta_natr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  *
         return columns, tulipy.natr(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='nvi', parameter_names=[], output_names=['nvi'])
 def ta_nvi(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -440,6 +466,7 @@ def ta_nvi(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.D
         return columns, tulipy.nvi(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='obv', parameter_names=[], output_names=['obv'])
 def ta_obv(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -458,6 +485,7 @@ def ta_obv(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.D
         return columns, tulipy.obv(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='psar', parameter_names=['acceleration_factor_step', 'acceleration_factor_maximum'], output_names=['psar'])
 def ta_psar(df: pd.DataFrame, acceleration_factor_step, acceleration_factor_maximum,  high='High', low='Low',  **kwargs) -> pd.DataFrame:
@@ -476,6 +504,7 @@ def ta_psar(df: pd.DataFrame, acceleration_factor_step, acceleration_factor_maxi
         return columns, tulipy.psar(values.copy(order='C'), acceleration_factor_step, acceleration_factor_maximum, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='pvi', parameter_names=[], output_names=['pvi'])
 def ta_pvi(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -494,6 +523,7 @@ def ta_pvi(df: pd.DataFrame,  close='Close', volume='Volume',  **kwargs) -> pd.D
         return columns, tulipy.pvi(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='qstick', parameter_names=['period'], output_names=['qstick'])
 def ta_qstick(df: pd.DataFrame, period,  open='Open', close='Close',  **kwargs) -> pd.DataFrame:
@@ -512,6 +542,7 @@ def ta_qstick(df: pd.DataFrame, period,  open='Open', close='Close',  **kwargs) 
         return columns, tulipy.qstick(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='stoch', parameter_names=['k_period', 'k_slowing_period', 'd_period'], output_names=['stoch_k', 'stoch_d'])
 def ta_stoch(df: pd.DataFrame, k_period, k_slowing_period, d_period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -530,6 +561,7 @@ def ta_stoch(df: pd.DataFrame, k_period, k_slowing_period, d_period,  high='High
         return columns, tulipy.stoch(values.copy(order='C'), k_period, k_slowing_period, d_period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='tr', parameter_names=[], output_names=['tr'])
 def ta_tr(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -548,6 +580,7 @@ def ta_tr(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) -
         return columns, tulipy.tr(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='typprice', parameter_names=[], output_names=['typprice'])
 def ta_typprice(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -566,6 +599,7 @@ def ta_typprice(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwa
         return columns, tulipy.typprice(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='ultosc', parameter_names=['short_period', 'medium_period', 'long_period'], output_names=['ultosc'])
 def ta_ultosc(df: pd.DataFrame, short_period, medium_period, long_period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -584,6 +618,7 @@ def ta_ultosc(df: pd.DataFrame, short_period, medium_period, long_period,  high=
         return columns, tulipy.ultosc(values.copy(order='C'), short_period, medium_period, long_period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='vwma', parameter_names=['period'], output_names=['vwma'])
 def ta_vwma(df: pd.DataFrame, period,  close='Close', volume='Volume',  **kwargs) -> pd.DataFrame:
@@ -602,6 +637,7 @@ def ta_vwma(df: pd.DataFrame, period,  close='Close', volume='Volume',  **kwargs
         return columns, tulipy.vwma(values.copy(order='C'), period, )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='wad', parameter_names=[], output_names=['wad'])
 def ta_wad(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -620,6 +656,7 @@ def ta_wad(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) 
         return columns, tulipy.wad(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='wcprice', parameter_names=[], output_names=['wcprice'])
 def ta_wcprice(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:
@@ -638,6 +675,7 @@ def ta_wcprice(df: pd.DataFrame,  high='High', low='Low', close='Close',  **kwar
         return columns, tulipy.wcprice(values.copy(order='C'), )
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='willr', parameter_names=['period'], output_names=['willr'])
 def ta_willr(df: pd.DataFrame, period,  high='High', low='Low', close='Close',  **kwargs) -> pd.DataFrame:

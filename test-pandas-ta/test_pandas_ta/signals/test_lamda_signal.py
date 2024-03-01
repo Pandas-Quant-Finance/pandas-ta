@@ -17,6 +17,6 @@ class TestLambdaSignal(TestCase):
         )
 
         numpy.testing.assert_array_almost_equal(
-            [nan, nan, nan, 1.0, nan, nan, nan, 0.0, nan],
-            res["a"].tolist()
+            [nan, nan, 1.0, nan, nan, nan, 0.0, nan],
+            res["signal_0"].tolist()
         )

@@ -6,8 +6,10 @@ import pandas as pd
 
 from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row_and_column
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_rolling_lambda(
         df: pd.DataFrame | pd.Series,

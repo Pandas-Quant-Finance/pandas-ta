@@ -8,8 +8,10 @@ import pandas as pd
 
 from pandas_df_commons.indexing import get_columns
 from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_column, convert_series_as_data_frame
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 def ta_returns(
         df: pd.DataFrame | pd.Series,
         period: int = 1,

@@ -6,8 +6,10 @@ import pandas as pd
 
 from pandas_df_commons.indexing.decorators import foreach_top_level_row
 from pandas_df_commons.indexing import get_columns
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 def ta_weighted_row(
         df: pd.DataFrame | pd.Series,
         weights: str | List[str] | pd.Series,
@@ -24,6 +26,7 @@ def ta_weighted_row(
     return (data * weights.values).div(weights.mean(axis=1), axis=0)
 
 
+@apply_appendable
 def ta_average_weighted_column(
         df: pd.DataFrame | pd.Series,
         weights: str | List[str] | pd.Series,

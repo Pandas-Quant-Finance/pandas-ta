@@ -5,8 +5,10 @@ import pandas as pd
 
 from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_column
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 @foreach_column
 @foreach_top_level_row
 def ta_std_ratio(df: pd.DataFrame, slow: int, fast: int, relative_loc: bool = False) -> pd.DataFrame:

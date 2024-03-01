@@ -7,7 +7,10 @@ from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_le
 
 import tulipy
 
+from pandas_ta.ta_decorators import apply_appendable
 
+
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_apo(df: pd.DataFrame | pd.Series, short_period, long_period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -27,6 +30,7 @@ def ta_apo(df: pd.DataFrame | pd.Series, short_period, long_period,  real='Close
     return wrapped_ta_apo(data, short_period, long_period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_bbands(df: pd.DataFrame | pd.Series, period, stddev,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -46,6 +50,7 @@ def ta_bbands(df: pd.DataFrame | pd.Series, period, stddev,  real='Close',  **kw
     return wrapped_ta_bbands(data, period, stddev, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_cmo(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -65,6 +70,7 @@ def ta_cmo(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_cmo(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_decay(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -84,6 +90,7 @@ def ta_decay(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> 
     return wrapped_ta_decay(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_dema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -103,6 +110,7 @@ def ta_dema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_dema(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_dpo(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -122,6 +130,7 @@ def ta_dpo(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_dpo(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_edecay(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -141,6 +150,7 @@ def ta_edecay(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) ->
     return wrapped_ta_edecay(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_ema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -160,6 +170,7 @@ def ta_ema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_ema(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_fosc(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -179,6 +190,7 @@ def ta_fosc(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_fosc(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_hma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -198,6 +210,7 @@ def ta_hma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_hma(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_kama(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -217,6 +230,7 @@ def ta_kama(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_kama(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_lag(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -236,6 +250,7 @@ def ta_lag(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_lag(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_linreg(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -255,6 +270,7 @@ def ta_linreg(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) ->
     return wrapped_ta_linreg(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_linregintercept(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -274,6 +290,7 @@ def ta_linregintercept(df: pd.DataFrame | pd.Series, period,  real='Close',  **k
     return wrapped_ta_linregintercept(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_linregslope(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -293,6 +310,7 @@ def ta_linregslope(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwarg
     return wrapped_ta_linregslope(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_macd(df: pd.DataFrame | pd.Series, short_period, long_period, signal_period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -312,6 +330,7 @@ def ta_macd(df: pd.DataFrame | pd.Series, short_period, long_period, signal_peri
     return wrapped_ta_macd(data, short_period, long_period, signal_period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_max(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -331,6 +350,7 @@ def ta_max(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_max(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_md(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -350,6 +370,7 @@ def ta_md(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.
     return wrapped_ta_md(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_min(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -369,6 +390,7 @@ def ta_min(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_min(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_mom(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -388,6 +410,7 @@ def ta_mom(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_mom(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_msw(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -407,6 +430,7 @@ def ta_msw(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_msw(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_ppo(df: pd.DataFrame | pd.Series, short_period, long_period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -426,6 +450,7 @@ def ta_ppo(df: pd.DataFrame | pd.Series, short_period, long_period,  real='Close
     return wrapped_ta_ppo(data, short_period, long_period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_roc(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -445,6 +470,7 @@ def ta_roc(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_roc(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_rocr(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -464,6 +490,7 @@ def ta_rocr(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_rocr(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_rsi(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -483,6 +510,7 @@ def ta_rsi(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_rsi(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_sma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -502,6 +530,7 @@ def ta_sma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_sma(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_stddev(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -521,6 +550,7 @@ def ta_stddev(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) ->
     return wrapped_ta_stddev(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_stderr(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -540,6 +570,7 @@ def ta_stderr(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) ->
     return wrapped_ta_stderr(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_stochrsi(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -559,6 +590,7 @@ def ta_stochrsi(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) 
     return wrapped_ta_stochrsi(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_sum(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -578,6 +610,7 @@ def ta_sum(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_sum(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_tema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -597,6 +630,7 @@ def ta_tema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_tema(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_trima(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -616,6 +650,7 @@ def ta_trima(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> 
     return wrapped_ta_trima(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_trix(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -635,6 +670,7 @@ def ta_trix(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> p
     return wrapped_ta_trix(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_tsf(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -654,6 +690,7 @@ def ta_tsf(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_tsf(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_var(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -673,6 +710,7 @@ def ta_var(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_var(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_vhf(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -692,6 +730,7 @@ def ta_vhf(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_vhf(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_vidya(df: pd.DataFrame | pd.Series, short_period, long_period, alpha,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -711,6 +750,7 @@ def ta_vidya(df: pd.DataFrame | pd.Series, short_period, long_period, alpha,  re
     return wrapped_ta_vidya(data, short_period, long_period, alpha, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_volatility(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -730,6 +770,7 @@ def ta_volatility(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs
     return wrapped_ta_volatility(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_vosc(df: pd.DataFrame | pd.Series, short_period, long_period,  volume='Volume',  **kwargs) -> pd.DataFrame:
     """
@@ -749,6 +790,7 @@ def ta_vosc(df: pd.DataFrame | pd.Series, short_period, long_period,  volume='Vo
     return wrapped_ta_vosc(data, short_period, long_period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_wilders(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -768,6 +810,7 @@ def ta_wilders(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -
     return wrapped_ta_wilders(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_wma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """
@@ -787,6 +830,7 @@ def ta_wma(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd
     return wrapped_ta_wma(data, period, )
         
 
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_zlema(df: pd.DataFrame | pd.Series, period,  real='Close',  **kwargs) -> pd.DataFrame:
     """

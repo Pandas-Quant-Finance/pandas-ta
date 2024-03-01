@@ -6,7 +6,10 @@ from pandas_df_commons.indexing import get_columns
 from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_top_level_column, rename_with_parameters
 import tulipy
 
+from pandas_ta.ta_decorators import apply_appendable
 
+
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 @rename_with_parameters(function_name='crossany', parameter_names=[], output_names=['crossany'])
@@ -24,6 +27,7 @@ def ta_crossany(df: pd.DataFrame, real=None, real1=None,   **kwargs) -> pd.DataF
     return columns, tulipy.crossany(*[values[:, i].copy(order='C') for i in range(values.shape[1])])
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 @rename_with_parameters(function_name='crossover', parameter_names=[], output_names=['crossover'])

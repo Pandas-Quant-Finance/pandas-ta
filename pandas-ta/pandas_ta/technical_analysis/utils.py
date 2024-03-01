@@ -1,12 +1,13 @@
 from __future__ import annotations
 import typing as _t
 import pandas as _pd
-import pandas as pd
 
 from pandas_df_commons.indexing.multiindex_utils import add_to_multi_index
 from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_top_level_column
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 def ta_repeat(
         df: _pd.DataFrame,
         func: _t.Callable[[_pd.DataFrame, _t.Any], _pd.DataFrame],
@@ -25,6 +26,7 @@ def ta_repeat(
     return add_to_multi_index(res, multiindex) if multiindex else res
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_apply(df: _pd.DataFrame, func: _t.Callable | _t.Dict[str, _t.Callable], period=None, columns=None):
@@ -65,6 +67,7 @@ def ta_apply(df: _pd.DataFrame, func: _t.Callable | _t.Dict[str, _t.Callable], p
         return _pd.concat([_pd.DataFrame({}, index=df.index), rdf], axis=1, join='outer')
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_resample(df: _pd.DataFrame, func, freq='D', **kwargs):
     return df.resample(freq, **kwargs).apply(func)

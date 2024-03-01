@@ -2,14 +2,18 @@ import numpy as np
 import pandas as pd
 
 from pandas_df_commons.indexing.decorators import foreach_top_level_column
+from pandas_ta.ta_decorators import apply_appendable
+
 TWO_LOG2_MINUS_1 = 2 * np.log(2) - 1
 
 
+@apply_appendable
 @foreach_top_level_column
 def ta_hlc3(df: pd.DataFrame, high='High', low='Low', close='Close') -> pd.DataFrame:
     return df[[high, low, close]].mean(axis=1).rename("HLC3")
 
 
+@apply_appendable
 @foreach_top_level_column
 def ta_garman_klass(df: pd.DataFrame, open='Open', high='High', low='Low', close='Close') -> pd.DataFrame:
     return (
@@ -17,6 +21,7 @@ def ta_garman_klass(df: pd.DataFrame, open='Open', high='High', low='Low', close
     ).rename("GKHF-Vol")
 
 
+@apply_appendable
 @foreach_top_level_column
 def ta_satchell_yoon(df: pd.DataFrame, open='Open', high='High', low='Low', close='Close') -> pd.DataFrame:
     # [ln(H) - ln(O)] * [ln(H) - ln(C)] + [ln(L) - ln(O)] * [ln(L) - ln(C)]

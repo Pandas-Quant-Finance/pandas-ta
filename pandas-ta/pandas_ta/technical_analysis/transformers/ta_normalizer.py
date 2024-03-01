@@ -7,8 +7,10 @@ from sklearn.preprocessing import StandardScaler
 
 from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing.decorators import foreach_top_level_row_and_column, convert_series_as_data_frame
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 def ta_standardized(
         df: pd.DataFrame | pd.Series,
         period: int = 14,
