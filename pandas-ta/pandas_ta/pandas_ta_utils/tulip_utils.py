@@ -88,6 +88,7 @@ class TestIndicator(TestCase):
 '''
 
 bar_template = Template('''
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=True)
 @rename_with_parameters(function_name='$name', parameter_names=[$parameter_names], output_names=[$output_names])
 def ta_$name(df: pd.DataFrame, $parameters $inputs **kwargs) -> pd.DataFrame:
@@ -108,6 +109,7 @@ def ta_$name(df: pd.DataFrame, $parameters $inputs **kwargs) -> pd.DataFrame:
 ''')
 
 price_template = Template('''
+@apply_appendable
 @foreach_top_level_row_and_column(parallel=False)
 def ta_$name(df: pd.DataFrame | pd.Series, $parameters $inputs **kwargs) -> pd.DataFrame:
     """

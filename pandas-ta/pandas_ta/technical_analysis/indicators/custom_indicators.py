@@ -7,8 +7,10 @@ from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing import get_columns
 from pandas_df_commons.indexing.decorators import foreach_column, foreach_top_level_row, rename_with_parameters, \
     foreach_top_level_column
+from pandas_ta.ta_decorators import apply_appendable
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_gmean(df: pd.Series, period, real='Close'):
     from scipy.stats import gmean
@@ -27,6 +29,7 @@ def ta_gmean(df: pd.Series, period, real='Close'):
     return wrapped(data, period)
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_mamentum(df: pd.Series, period, real='Close', mas=None):
     data = get_columns(df, real) if real is not None and df.ndim > 1 else df
@@ -66,6 +69,7 @@ def ta_mamentum(df: pd.Series, period, real='Close', mas=None):
     return wrapped(data, period, mas if mas is not None else period)
 
 
+@apply_appendable
 @foreach_top_level_row
 def ta_mdd(df: pd.DataFrame, period):
     """
@@ -91,10 +95,11 @@ def ta_mdd(df: pd.DataFrame, period):
     return wrapped(df, period)
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_hh_ll(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):
-    assert period is not None, "Non None period not yet implemented!"
+    assert period is None, "Non None period not yet implemented!"
     h_data = get_columns(df, high) if high is not None and df.ndim > 1 else df
     l_data = get_columns(df, low) if low is not None and df.ndim > 1 else df
 
@@ -137,6 +142,7 @@ def ta_hh_ll(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_qu
     return hh_ll
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_top_bottom(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):
@@ -201,6 +207,7 @@ def ta_top_bottom(df: pd.DataFrame, period=None, high='Close', low='Close', igno
     return top_bottom[["top", "bottom"]]
 
 
+@apply_appendable
 @foreach_top_level_row
 @foreach_top_level_column
 def ta_trend(df: pd.DataFrame, period=None, high='Close', low='Close', ignore_quantile_move=.05):

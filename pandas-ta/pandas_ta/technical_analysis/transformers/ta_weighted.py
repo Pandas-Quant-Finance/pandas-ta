@@ -21,7 +21,7 @@ def ta_weighted_row(
 
     assert weights.shape == data.shape, f"weight shape need to match {weights.shape} != {data.shape}"
 
-    return (data * weights.values).div(weights.sum(axis=1), axis=0)
+    return (data * weights.values).div(weights.mean(axis=1), axis=0)
 
 
 def ta_average_weighted_column(

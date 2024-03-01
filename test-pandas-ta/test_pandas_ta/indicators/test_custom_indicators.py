@@ -10,10 +10,11 @@ class TestCustomIndicators(TestCase):
 
     def test_gmean(self):
         df1 = ta_gmean(DF_TEST, 20)
-        #df2 = ta_gmean(DF_TEST, 0.97)
+        df2 = ta_gmean(DF_TEST, 20, append=True)
 
         pd.testing.assert_frame_equal(df1.loc["A"], df1.loc["B"])
-        #pd.testing.assert_frame_equal(df2.loc["A"], df2.loc["B"])
+        pd.testing.assert_frame_equal(df2.loc["A"], df2.loc["B"])
+        self.assertGreater(df2.shape[1], df1.shape[1])
 
     def test_mamentum(self):
         mam1 = ta_mamentum(DF_TEST, 40)
