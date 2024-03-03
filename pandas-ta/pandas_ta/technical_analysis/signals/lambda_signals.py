@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, Any
+from typing import Callable, Any, Iterable
 
 import numpy as np
 import pandas as pd
@@ -10,6 +10,7 @@ from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach
 from pandas_ta.ta_decorators import apply_appendable
 
 
+# FIXME this is obsolete we should use the ta_strategy
 @apply_appendable
 @foreach_top_level_row
 @foreach_column
@@ -40,17 +41,22 @@ def ta_lambda_signal(
 @apply_appendable
 @foreach_top_level_row
 @convert_series_as_data_frame
-def ta_lambda_position(
+def ta_strategy(
         df: pd.DataFrame,
         func: Callable[[dict, pd.Series], float],
+        names: Iterable[str] = None,
 ):
     # we pass in a mutable state
     state = {}
 
     # we call a strategy function with the mutable state to return the position weight which we need to shift
     # because we can only collect the net bars return
-    return pd.DataFrame(
+    res = pd.DataFrame(
         [func(state, row) for i, row in df.iterrows()],
         index=df.index,
     ).shift(1)
 
+    if names is not None:
+        res.columns = names
+
+    return res

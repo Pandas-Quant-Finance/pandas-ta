@@ -25,3 +25,8 @@ class TestPatchDataFrame(TestCase):
     def test_random_patch(self):
         from pandas_ta.patched import pd
         self.assertIsNotNone(getattr(getattr(pd.DataFrame({}), "ta", None), 'garman_klass', None))
+
+    def test_import_all_ta_functions(self):
+        import pandas_ta as ta
+        self.assertTrue(callable(ta.sma))
+        pd.testing.assert_frame_equal(DF_TEST.TA.sma(20), ta.sma(DF_TEST, 20))
