@@ -14,7 +14,7 @@ def ta_crossunder(df: pd.DataFrame, real=None, real1=None, **kwargs) -> pd.DataF
 
 
 # NOTE extending functions call already annotated functions
-def ta_crossover_value(df: pd.DataFrame, real=None, real1=None, value=1, **kwargs) -> pd.DataFrame:
+def ta_crossover_value(df: pd.DataFrame, real=None, real1=None, value=1, fillna=None, **kwargs) -> pd.DataFrame:
     from pandas_ta.technical_analysis import ta_crossover
     res = ta_crossover(df, real, real1, **kwargs).astype(bool)
 
@@ -27,7 +27,7 @@ def ta_crossover_value(df: pd.DataFrame, real=None, real1=None, value=1, **kwarg
             raise ke
 
     value = value[res.index].copy()
-    value[~res.values.squeeze()] = None
+    value[~res.values.squeeze()] = fillna
     return value.to_frame() if value.ndim < 2 else value
 
 
