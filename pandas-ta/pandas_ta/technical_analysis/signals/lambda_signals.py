@@ -39,9 +39,18 @@ def ta_lambda_signal(
 
 @apply_appendable
 @foreach_top_level_row
-@foreach_column
 @convert_series_as_data_frame
-def ta_lambda_position():
-    # do some stateful rolling apply
+def ta_lambda_position(
+        df: pd.DataFrame,
+        func: Callable[[dict, pd.Series], float],
+):
+    # we pass in a mutable state
+    state = {}
 
-    pass
+    # we call a strategy function with the mutable state to return the position weight which we need to shift
+    # because we can only collect the net bars return
+    return pd.DataFrame(
+        [func(state, row) for i, row in df.iterrows()],
+        index=df.index,
+    ).shift(1)
+

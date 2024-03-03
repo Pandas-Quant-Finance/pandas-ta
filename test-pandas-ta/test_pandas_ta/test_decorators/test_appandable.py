@@ -10,7 +10,8 @@ class TestAppendableDecorator(TestCase):
 
     def test_bbands(self):
         df = ta_bbands(DF_TEST, *[5, 2.0], append=True)
-        print(df.columns)
+        self.assertGreater(df.shape[1], DF_TEST.shape[1])
+        self.assertFalse(df.index.has_duplicates)
 
 
 
