@@ -13,6 +13,10 @@ def apply_appendable(func):
                 # we need to append an empty level to df
                 df = add_to_multi_index(df, "*", level=(1 if df.columns.nlevels > 1 else 0))
 
+            while df.columns.nlevels > res.columns.nlevels:
+                # we need to append an empty level to res
+                res = add_to_multi_index(res, "*", level=(1 if df.columns.nlevels > 1 else 0))
+
         res = pd.concat([df, res], axis=1).sort_index() if append else res
         if df.ndim > 1 and df.columns.nlevels > 1:
             res.sort_index(axis=1, level=0)
