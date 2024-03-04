@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, Any, Iterable
+from typing import Callable, Any, Iterable, Tuple
 
 import numpy as np
 import pandas as pd
@@ -8,6 +8,7 @@ import pandas as pd
 from pandas_df_commons.extensions.functions import rolling_apply
 from pandas_df_commons.indexing.decorators import foreach_top_level_row, foreach_column, convert_series_as_data_frame
 from pandas_ta.ta_decorators import apply_appendable
+from pandas_ta.technical_analysis.signals._state import StrategyState
 
 
 # FIXME this is obsolete we should use the ta_strategy
@@ -43,18 +44,21 @@ def ta_lambda_signal(
 @convert_series_as_data_frame
 def ta_strategy(
         df: pd.DataFrame,
-        func: Callable[[dict, pd.Series], float],
+        func: Callable[[StrategyState], float | Tuple[float] | pd.Series],
         names: Iterable[str] = None,
+        shift: int = 1,
 ):
     # we pass in a mutable state
-    state = {}
+    state = StrategyState()
 
     # we call a strategy function with the mutable state to return the position weight which we need to shift
     # because we can only collect the net bars return
-    res = pd.DataFrame(
-        [func(state, row) for i, row in df.iterrows()],
-        index=df.index,
-    ).shift(1)
+    res = []
+    for i, row in df.iterrows():
+        res.append(func(state._with_row(row)))
+        state.previous = res[-1]
+
+    res = pd.DataFrame(res, index=df.index).shift(shift)
 
     if names is not None:
         res.columns = names
